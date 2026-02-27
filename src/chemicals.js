@@ -15,6 +15,26 @@ export const CHEMICALS = [
     { id: 'cuso4', name: 'Copper Sulfate (CuSO₄)', formula: 'CuSO₄' },
     { id: 'mg', name: 'Magnesium Ribbon (Mg)', formula: 'Mg' },
     { id: 'zn', name: 'Zinc Metal (Zn)', formula: 'Zn' },
+    { id: 'ca', name: 'Calcium Metal (Ca)', formula: 'Ca' },
+    { id: 'al', name: 'Aluminum Foil (Al)', formula: 'Al' },
+    { id: 'cu', name: 'Copper Wire (Cu)', formula: 'Cu' },
+    { id: 'pb', name: 'Lead Metal (Pb)', formula: 'Pb' },
+    { id: 'hno3', name: 'Nitric Acid (HNO₃)', formula: 'HNO₃' },
+    { id: 'koh', name: 'Potassium Hydroxide (KOH)', formula: 'KOH' },
+    { id: 'nh3', name: 'Ammonia (NH₃)', formula: 'NH₃' },
+    { id: 'caco3', name: 'Calcium Carbonate (CaCO₃)', formula: 'CaCO₃' },
+    { id: 'mno2', name: 'Manganese Dioxide (MnO₂)', formula: 'MnO₂' },
+    { id: 'kcl', name: 'Potassium Chloride (KCl)', formula: 'KCl' },
+    { id: 'baco3', name: 'Barium Carbonate (BaCO₃)', formula: 'BaCO₃' },
+    { id: 'fecl3', name: 'Iron(III) Chloride (FeCl₃)', formula: 'FeCl₃' },
+    { id: 'na2co3', name: 'Sodium Carbonate (Na₂CO₃)', formula: 'Na₂CO₃' },
+    { id: 'cacl2', name: 'Calcium Chloride (CaCl₂)', formula: 'CaCl₂' },
+    { id: 'pbno3', name: 'Lead Nitrate (Pb(NO₃)₂)', formula: 'Pb(NO₃)₂' },
+    { id: 'ki', name: 'Potassium Iodide (KI)', formula: 'KI' },
+    { id: 'ba', name: 'Barium Metal (Ba)', formula: 'Ba' },
+    { id: 'k', name: 'Potassium Metal (K)', formula: 'K' },
+    { id: 'c', name: 'Carbon (C)', formula: 'C' },
+    { id: 'o2', name: 'Oxygen Gas (O₂)', formula: 'O₂' },
 ];
 
 function k(a, b) { return [a, b].sort().join('+'); }
@@ -34,6 +54,75 @@ export const REACTIONS = {
     [k('h2o2', 'kno3')]: { risk: 'moderate', effect: 'smoke', message: 'Catalyzed decomposition producing oxygen.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>2H₂O₂ →(KNO₃)→ 2H₂O + O₂↑</strong><br><br>KNO₃ catalyzes decomposition of hydrogen peroxide. Keep away from flames.<br><br><strong>Product:</strong> Water + Oxygen Gas', teacher_notes: 'Test O₂ with glowing splint (relights). Compare with MnO₂ catalyst.', equation: '2H₂O₂ → 2H₂O + O₂↑', product: 'H₂O + O₂', type: 'Decomposition' },
     [k('mg', 'h2o')]: { risk: 'moderate', effect: 'smoke', message: 'Slow at room temp; reacts well with steam.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Mg + 2H₂O → Mg(OH)₂ + H₂↑</strong><br><br><em>Single Displacement</em> — very slow with cold water, vigorous with steam.<br><br><strong>Product:</strong> Mg(OH)₂ + H₂', teacher_notes: 'Useful for comparing Group 2 reactivity. Mg(OH)₂ is "milk of magnesia" — an antacid.', equation: 'Mg + 2H₂O → Mg(OH)₂ + H₂↑', product: 'Mg(OH)₂ + H₂', type: 'Single Displacement' },
     [k('h2so4', 'zn')]: { risk: 'moderate', effect: 'smoke', message: 'Steady H₂ evolution. Use dilute acid only.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Zn + H₂SO₄ → ZnSO₄ + H₂↑</strong><br><br><em>Single Displacement</em> with dilute sulfuric acid.<br><br><strong>Product:</strong> ZnSO₄ + H₂<br><strong>Safety:</strong> Concentrated H₂SO₄ produces SO₂ instead!', teacher_notes: 'Only works with dilute H₂SO₄. Concentrated H₂SO₄ produces SO₂ — important A-level distinction.', equation: 'Zn + H₂SO₄ → ZnSO₄ + H₂↑', product: 'ZnSO₄ + H₂', type: 'Single Displacement' },
+    
+    // ─── NEW REACTIONS (30+) ─────────────
+    [k('ca', 'h2o')]: { risk: 'danger', effect: 'explosion', message: 'Vigorous reaction with hydrogen evolution!', explanation: '🔴 <strong>DANGER — High Risk!</strong><br><br><strong>Ca + 2H₂O → Ca(OH)₂ + H₂↑</strong><br><br>Calcium reacts vigorously with water, producing flammable hydrogen gas.<br><br><strong>Product:</strong> Calcium Hydroxide + Hydrogen Gas', teacher_notes: 'Group 2 metals react with water. Ca is more reactive than Mg but less than alkali metals.', equation: 'Ca + 2H₂O → Ca(OH)₂ + H₂↑', product: 'Ca(OH)₂ + H₂', type: 'Single Displacement' },
+    
+    [k('k', 'h2o')]: { risk: 'danger', effect: 'explosion', message: '⚠️ EXPLOSIVE! More violent than sodium!', explanation: '🔴 <strong>DANGER — Extreme Risk!</strong><br><br><strong>2K + 2H₂O → 2KOH + H₂↑</strong><br><br>Potassium reacts explosively with water, often igniting the hydrogen gas produced.<br><br><strong>Product:</strong> Potassium Hydroxide + Hydrogen Gas', teacher_notes: 'K is more reactive than Na. Reaction produces lilac flame. NEVER attempt in school lab.', equation: '2K + 2H₂O → 2KOH + H₂↑', product: 'KOH + H₂', type: 'Single Displacement' },
+    
+    [k('ba', 'h2o')]: { risk: 'danger', effect: 'explosion', message: 'Extremely vigorous reaction!', explanation: '🔴 <strong>DANGER — High Risk!</strong><br><br><strong>Ba + 2H₂O → Ba(OH)₂ + H₂↑</strong><br><br>Barium reacts violently with water.<br><br><strong>Product:</strong> Barium Hydroxide + Hydrogen Gas', teacher_notes: 'Ba compounds are toxic. Reaction is highly exothermic.', equation: 'Ba + 2H₂O → Ba(OH)₂ + H₂↑', product: 'Ba(OH)₂ + H₂', type: 'Single Displacement' },
+    
+    [k('hcl', 'caco3')]: { risk: 'safe', effect: 'green_glow', message: 'Fizzing produces CO₂ bubbles.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>2HCl + CaCO₃ → CaCl₂ + H₂O + CO₂↑</strong><br><br>Acid reacts with carbonate producing carbon dioxide gas.<br><br><strong>Product:</strong> Calcium Chloride + Water + CO₂', teacher_notes: 'Used to test for carbonates. Marble chips (CaCO₃) commonly used in rate experiments.', equation: '2HCl + CaCO₃ → CaCl₂ + H₂O + CO₂↑', product: 'CaCl₂ + H₂O + CO₂', type: 'Acid-Carbonate' },
+    
+    [k('h2so4', 'caco3')]: { risk: 'safe', effect: 'green_glow', message: 'Slow fizzing with CO₂ evolution.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>H₂SO₄ + CaCO₃ → CaSO₄ + H₂O + CO₂↑</strong><br><br>Reaction slows as CaSO₄ coating forms on carbonate surface.<br><br><strong>Product:</strong> Calcium Sulfate + Water + CO₂', teacher_notes: 'CaSO₄ is sparingly soluble, coating the marble and slowing reaction.', equation: 'H₂SO₄ + CaCO₃ → CaSO₄ + H₂O + CO₂↑', product: 'CaSO₄ + H₂O + CO₂', type: 'Acid-Carbonate' },
+    
+    [k('hno3', 'cu')]: { risk: 'moderate', effect: 'smoke', message: 'Brown NO₂ fumes produced!', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O</strong><br><br>Nitric acid oxidizes copper, producing toxic brown nitrogen dioxide fumes.<br><br><strong>Product:</strong> Copper Nitrate + NO₂ + Water', teacher_notes: 'Concentrated HNO₃ produces NO₂ (brown). Dilute produces NO (colorless, turns brown in air). Use fume hood.', equation: '3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O', product: 'Cu(NO₃)₂ + NO₂ + H₂O', type: 'Redox' },
+    
+    [k('hcl', 'koh')]: { risk: 'safe', effect: 'green_glow', message: 'Neutralization produces salt and water.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>HCl + KOH → KCl + H₂O</strong><br><br>Strong acid-base neutralization.<br><br><strong>Product:</strong> Potassium Chloride + Water', teacher_notes: 'Similar to HCl + NaOH. Both are strong acid-strong base neutralizations.', equation: 'HCl + KOH → KCl + H₂O', product: 'KCl + H₂O', type: 'Neutralization' },
+    
+    [k('h2so4', 'koh')]: { risk: 'moderate', effect: 'smoke', message: 'Exothermic neutralization.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O</strong><br><br>Diprotic acid neutralization releases significant heat.<br><br><strong>Product:</strong> Potassium Sulfate + Water', teacher_notes: '2:1 mole ratio. Exothermic reaction.', equation: 'H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O', product: 'K₂SO₄ + H₂O', type: 'Neutralization' },
+    
+    [k('hcl', 'nh3')]: { risk: 'safe', effect: 'green_glow', message: 'White smoke of ammonium chloride forms.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>HCl + NH₃ → NH₄Cl</strong><br><br>Acid-base reaction producing white smoke.<br><br><strong>Product:</strong> Ammonium Chloride', teacher_notes: 'Classic "smoke rings" demo. NH₄Cl sublimes at room temp.', equation: 'HCl + NH₃ → NH₄Cl', product: 'NH₄Cl', type: 'Acid-Base' },
+    
+    [k('h2o2', 'mno2')]: { risk: 'moderate', effect: 'smoke', message: 'Rapid oxygen evolution with catalyst!', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>2H₂O₂ →(MnO₂)→ 2H₂O + O₂↑</strong><br><br>MnO₂ catalyzes rapid decomposition of hydrogen peroxide.<br><br><strong>Product:</strong> Water + Oxygen Gas', teacher_notes: 'MnO₂ is a catalyst (not consumed). Test O₂ with glowing splint. Exothermic.', equation: '2H₂O₂ → 2H₂O + O₂↑', product: 'H₂O + O₂', type: 'Decomposition' },
+    
+    [k('agno3', 'cu')]: { risk: 'safe', effect: 'green_glow', message: 'Silver crystals form on copper wire.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>2AgNO₃ + Cu → Cu(NO₃)₂ + 2Ag</strong><br><br>Copper displaces silver from solution.<br><br><strong>Product:</strong> Copper Nitrate + Silver', teacher_notes: 'Beautiful demo. Silver crystals grow on copper wire. Solution turns blue.', equation: '2AgNO₃ + Cu → Cu(NO₃)₂ + 2Ag', product: 'Cu(NO₃)₂ + Ag', type: 'Single Displacement' },
+    
+    [k('pbno3', 'ki')]: { risk: 'safe', effect: 'green_glow', message: 'Bright yellow precipitate of PbI₂.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃</strong><br><br>Classic precipitation reaction producing golden yellow lead iodide.<br><br><strong>Product:</strong> Lead Iodide + Potassium Nitrate', teacher_notes: 'PbI₂ is bright yellow. "Golden rain" demo when hot solution cools.', equation: 'Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃', product: 'PbI₂ + KNO₃', type: 'Double Displacement' },
+    
+    [k('na2co3', 'cacl2')]: { risk: 'safe', effect: 'green_glow', message: 'White precipitate of calcium carbonate.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Na₂CO₃ + CaCl₂ → CaCO₃↓ + 2NaCl</strong><br><br>Precipitation reaction forming chalk.<br><br><strong>Product:</strong> Calcium Carbonate + Sodium Chloride', teacher_notes: 'CaCO₃ is insoluble. Used to demonstrate precipitation.', equation: 'Na₂CO₃ + CaCl₂ → CaCO₃↓ + 2NaCl', product: 'CaCO₃ + NaCl', type: 'Double Displacement' },
+    
+    [k('fecl3', 'naoh')]: { risk: 'safe', effect: 'green_glow', message: 'Rust-colored precipitate forms.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl</strong><br><br>Iron(III) hydroxide precipitates as rust-colored solid.<br><br><strong>Product:</strong> Iron(III) Hydroxide + Sodium Chloride', teacher_notes: 'Fe(OH)₃ is rust-colored. Demonstrates transition metal hydroxide precipitation.', equation: 'FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl', product: 'Fe(OH)₃ + NaCl', type: 'Double Displacement' },
+    
+    [k('al', 'hcl')]: { risk: 'moderate', effect: 'smoke', message: 'Vigorous H₂ evolution with heat.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>2Al + 6HCl → 2AlCl₃ + 3H₂↑</strong><br><br>Aluminum reacts vigorously with hydrochloric acid.<br><br><strong>Product:</strong> Aluminum Chloride + Hydrogen Gas', teacher_notes: 'Oxide layer must be removed first. Reaction is exothermic.', equation: '2Al + 6HCl → 2AlCl₃ + 3H₂↑', product: 'AlCl₃ + H₂', type: 'Single Displacement' },
+    
+    [k('al', 'naoh')]: { risk: 'moderate', effect: 'smoke', message: 'Aluminum dissolves in base with H₂ evolution.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑</strong><br><br>Amphoteric aluminum reacts with strong base.<br><br><strong>Product:</strong> Sodium Aluminate + Hydrogen Gas', teacher_notes: 'Al is amphoteric (reacts with both acids and bases). Used in drain cleaners.', equation: '2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑', product: 'Na[Al(OH)₄] + H₂', type: 'Redox' },
+    
+    [k('mg', 'o2')]: { risk: 'danger', effect: 'explosion', message: 'Brilliant white light and intense heat!', explanation: '🔴 <strong>DANGER — High Risk!</strong><br><br><strong>2Mg + O₂ → 2MgO</strong><br><br>Magnesium burns with brilliant white light.<br><br><strong>Product:</strong> Magnesium Oxide', teacher_notes: 'DO NOT look directly at burning Mg (UV damage). Cannot be extinguished with water or CO₂.', equation: '2Mg + O₂ → 2MgO', product: 'MgO', type: 'Combustion' },
+    
+    [k('c', 'o2')]: { risk: 'moderate', effect: 'smoke', message: 'Combustion produces CO₂.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>C + O₂ → CO₂</strong><br><br>Complete combustion of carbon.<br><br><strong>Product:</strong> Carbon Dioxide', teacher_notes: 'Incomplete combustion produces CO (toxic). Ensure adequate oxygen supply.', equation: 'C + O₂ → CO₂', product: 'CO₂', type: 'Combustion' },
+    
+    [k('fe', 'hcl')]: { risk: 'moderate', effect: 'smoke', message: 'Slow H₂ evolution with green solution.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Fe + 2HCl → FeCl₂ + H₂↑</strong><br><br>Iron reacts slowly with hydrochloric acid.<br><br><strong>Product:</strong> Iron(II) Chloride + Hydrogen Gas', teacher_notes: 'Produces Fe²⁺ (green). Slower than Mg or Zn with HCl.', equation: 'Fe + 2HCl → FeCl₂ + H₂↑', product: 'FeCl₂ + H₂', type: 'Single Displacement' },
+    
+    [k('cu', 'h2so4')]: { risk: 'moderate', effect: 'smoke', message: 'Requires concentrated acid and heat.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Cu + 2H₂SO₄ → CuSO₄ + SO₂↑ + 2H₂O</strong><br><br>Copper reacts with hot concentrated sulfuric acid.<br><br><strong>Product:</strong> Copper Sulfate + SO₂ + Water', teacher_notes: 'Only works with concentrated H₂SO₄. Produces toxic SO₂ gas. Use fume hood.', equation: 'Cu + 2H₂SO₄ → CuSO₄ + SO₂↑ + 2H₂O', product: 'CuSO₄ + SO₂ + H₂O', type: 'Redox' },
+    
+    [k('zn', 'agno3')]: { risk: 'safe', effect: 'green_glow', message: 'Silver crystals form on zinc.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Zn + 2AgNO₃ → Zn(NO₃)₂ + 2Ag</strong><br><br>Zinc displaces silver from solution.<br><br><strong>Product:</strong> Zinc Nitrate + Silver', teacher_notes: 'Similar to Cu + AgNO₃. Demonstrates reactivity series.', equation: 'Zn + 2AgNO₃ → Zn(NO₃)₂ + 2Ag', product: 'Zn(NO₃)₂ + Ag', type: 'Single Displacement' },
+    
+    [k('mg', 'cuso4')]: { risk: 'safe', effect: 'green_glow', message: 'Magnesium displaces copper rapidly.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Mg + CuSO₄ → MgSO₄ + Cu</strong><br><br>Highly reactive magnesium displaces copper.<br><br><strong>Product:</strong> Magnesium Sulfate + Copper', teacher_notes: 'Faster than Fe or Zn with CuSO₄. Mg is more reactive.', equation: 'Mg + CuSO₄ → MgSO₄ + Cu', product: 'MgSO₄ + Cu', type: 'Single Displacement' },
+    
+    [k('ca', 'hcl')]: { risk: 'moderate', effect: 'smoke', message: 'Vigorous reaction with H₂ bubbles.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Ca + 2HCl → CaCl₂ + H₂↑</strong><br><br>Calcium reacts vigorously with acid.<br><br><strong>Product:</strong> Calcium Chloride + Hydrogen Gas', teacher_notes: 'More vigorous than Mg + HCl. Group 2 reactivity increases down the group.', equation: 'Ca + 2HCl → CaCl₂ + H₂↑', product: 'CaCl₂ + H₂', type: 'Single Displacement' },
+    
+    [k('pb', 'hcl')]: { risk: 'safe', effect: 'green_glow', message: 'Very slow reaction, PbCl₂ coating forms.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Pb + 2HCl → PbCl₂ + H₂↑</strong><br><br>Lead reacts very slowly due to PbCl₂ coating.<br><br><strong>Product:</strong> Lead Chloride + Hydrogen Gas', teacher_notes: 'PbCl₂ is sparingly soluble, coating the metal and stopping reaction.', equation: 'Pb + 2HCl → PbCl₂ + H₂↑', product: 'PbCl₂ + H₂', type: 'Single Displacement' },
+    
+    [k('ch3cooh', 'naoh')]: { risk: 'safe', effect: 'green_glow', message: 'Weak acid-strong base neutralization.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>CH₃COOH + NaOH → CH₃COONa + H₂O</strong><br><br>Acetic acid neutralized by sodium hydroxide.<br><br><strong>Product:</strong> Sodium Acetate + Water', teacher_notes: 'pH at equivalence > 7 (weak acid-strong base). Sodium acetate is basic.', equation: 'CH₃COOH + NaOH → CH₃COONa + H₂O', product: 'CH₃COONa + H₂O', type: 'Neutralization' },
+    
+    [k('nh3', 'h2so4')]: { risk: 'safe', effect: 'green_glow', message: 'Forms ammonium sulfate.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>2NH₃ + H₂SO₄ → (NH₄)₂SO₄</strong><br><br>Weak base-strong acid neutralization.<br><br><strong>Product:</strong> Ammonium Sulfate', teacher_notes: 'Ammonium sulfate is a common fertilizer. pH at equivalence < 7.', equation: '2NH₃ + H₂SO₄ → (NH₄)₂SO₄', product: '(NH₄)₂SO₄', type: 'Acid-Base' },
+    
+    [k('na2co3', 'hcl')]: { risk: 'safe', effect: 'green_glow', message: 'Vigorous CO₂ evolution.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂↑</strong><br><br>Carbonate reacts with acid producing CO₂.<br><br><strong>Product:</strong> Sodium Chloride + Water + CO₂', teacher_notes: 'More vigorous than NaHCO₃ + HCl. Na₂CO₃ is a stronger base.', equation: 'Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂↑', product: 'NaCl + H₂O + CO₂', type: 'Acid-Carbonate' },
+    
+    [k('h2so4', 'mg')]: { risk: 'moderate', effect: 'smoke', message: 'Rapid H₂ evolution with heat.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Mg + H₂SO₄ → MgSO₄ + H₂↑</strong><br><br>Vigorous exothermic reaction.<br><br><strong>Product:</strong> Magnesium Sulfate + Hydrogen Gas', teacher_notes: 'Use dilute acid only. Very exothermic. Mg is highly reactive.', equation: 'Mg + H₂SO₄ → MgSO₄ + H₂↑', product: 'MgSO₄ + H₂', type: 'Single Displacement' },
+    
+    [k('hno3', 'naoh')]: { risk: 'safe', effect: 'green_glow', message: 'Strong acid-strong base neutralization.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>HNO₃ + NaOH → NaNO₃ + H₂O</strong><br><br>Neutralization producing sodium nitrate.<br><br><strong>Product:</strong> Sodium Nitrate + Water', teacher_notes: 'pH at equivalence = 7. NaNO₃ is neutral salt.', equation: 'HNO₃ + NaOH → NaNO₃ + H₂O', product: 'NaNO₃ + H₂O', type: 'Neutralization' },
+    
+    [k('agno3', 'hcl')]: { risk: 'safe', effect: 'green_glow', message: 'White curdy precipitate of AgCl.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>AgNO₃ + HCl → AgCl↓ + HNO₃</strong><br><br>Classic test for chloride ions.<br><br><strong>Product:</strong> Silver Chloride + Nitric Acid', teacher_notes: 'AgCl is photosensitive. Darkens in light. Used in qualitative analysis.', equation: 'AgNO₃ + HCl → AgCl↓ + HNO₃', product: 'AgCl + HNO₃', type: 'Precipitation' },
+    
+    [k('cuso4', 'naoh')]: { risk: 'safe', effect: 'green_glow', message: 'Blue precipitate of Cu(OH)₂.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄</strong><br><br>Copper hydroxide precipitates as pale blue solid.<br><br><strong>Product:</strong> Copper Hydroxide + Sodium Sulfate', teacher_notes: 'Cu(OH)₂ decomposes to black CuO on heating.', equation: 'CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄', product: 'Cu(OH)₂ + Na₂SO₄', type: 'Double Displacement' },
+    
+    [k('al', 'cuso4')]: { risk: 'safe', effect: 'green_glow', message: 'Aluminum displaces copper.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>2Al + 3CuSO₄ → Al₂(SO₄)₃ + 3Cu</strong><br><br>Aluminum is more reactive than copper.<br><br><strong>Product:</strong> Aluminum Sulfate + Copper', teacher_notes: 'Oxide layer must be removed. Reaction is exothermic.', equation: '2Al + 3CuSO₄ → Al₂(SO₄)₃ + 3Cu', product: 'Al₂(SO₄)₃ + Cu', type: 'Single Displacement' },
+    
+    [k('fe', 'h2so4')]: { risk: 'moderate', effect: 'smoke', message: 'Slow H₂ evolution.', explanation: '⚠️ <strong>Moderate Risk</strong><br><br><strong>Fe + H₂SO₄ → FeSO₄ + H₂↑</strong><br><br>Iron reacts with dilute sulfuric acid.<br><br><strong>Product:</strong> Iron(II) Sulfate + Hydrogen Gas', teacher_notes: 'Use dilute acid. Concentrated acid passivates iron.', equation: 'Fe + H₂SO₄ → FeSO₄ + H₂↑', product: 'FeSO₄ + H₂', type: 'Single Displacement' },
+    
+    [k('ca', 'cuso4')]: { risk: 'safe', effect: 'green_glow', message: 'Calcium displaces copper.', explanation: '✅ <strong>Safe Reaction</strong><br><br><strong>Ca + CuSO₄ → CaSO₄ + Cu</strong><br><br>Calcium is more reactive than copper.<br><br><strong>Product:</strong> Calcium Sulfate + Copper', teacher_notes: 'Ca is Group 2 metal, more reactive than transition metals.', equation: 'Ca + CuSO₄ → CaSO₄ + Cu', product: 'CaSO₄ + Cu', type: 'Single Displacement' },
 };
 
 export const QA = [
@@ -47,7 +136,8 @@ export const QA = [
     { keywords: ['displacement'], reply: '🔄 <strong>Displacement</strong> reactions occur when a more reactive element replaces a less reactive one from a compound.' },
     { keywords: ['precipit'], reply: '🧫 A <strong>precipitation</strong> reaction forms an insoluble solid when two solutions are mixed. E.g., AgNO₃ + NaCl → AgCl↓' },
     { keywords: ['catalyst'], reply: '⚡ A <strong>catalyst</strong> speeds up a reaction without being consumed. It lowers the activation energy.' },
-    { keywords: ['help', 'what can you do'], reply: '🤖 I can explain reactions, answer chemistry questions, and provide safety guidance. Try mixing chemicals or ask about acids, reactivity series, or safety!' },
+    { keywords: ['naoh', 'sodium hydroxide', 'daily life', 'uses', 'applications'], reply: '🧼 <strong>NaOH (Sodium Hydroxide)</strong> daily uses:<br>• <strong>Soap making</strong> - saponification of fats<br>• <strong>Drain cleaners</strong> - dissolves grease and hair<br>• <strong>Paper production</strong> - pulping wood<br>• <strong>Food processing</strong> - pretzels, olives<br>• <strong>Oven cleaners</strong> - breaks down baked-on grease<br><br>⚠️ <em>Caustic - handle with care!</em>' },
+    { keywords: ['help', 'what can you do'], reply: '🤖 I can explain reactions, answer chemistry questions, and provide safety guidance. Try mixing chemicals or ask about specific compounds!' },
 ];
 
 export function reactionKey(a, b) { return [a, b].sort().join('+'); }

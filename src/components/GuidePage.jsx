@@ -2,26 +2,31 @@ import { useState, useEffect, useMemo } from 'react';
 import SearchBar from './SearchBar';
 import FilterDropdown from './FilterDropdown';
 import ReactionCard from './ReactionCard';
+import { REACTIONS, CHEMICALS } from '../chemicals';
 
 const API_URL = 'http://localhost:8000/reaction-guide';
 
-// Local fallback data
-const FALLBACK_DATA = [
-    { chem1: 'Sodium', chem2: 'Water', risk: 'danger', type: 'Explosion', short: 'Violent reaction producing hydrogen gas.', equation: '2Na + 2H₂O → 2NaOH + H₂↑', safety: 'Never mix without controlled lab setup. Use blast shield.', teacher_notes: 'Exothermic reaction producing flammable H₂ gas. Alkali metals increase in reactivity down Group 1.' },
-    { chem1: 'HCl', chem2: 'NaOH', risk: 'safe', type: 'Neutralization', short: 'Acid-base neutralization reaction.', equation: 'HCl + NaOH → NaCl + H₂O', safety: 'Wear gloves and goggles.', teacher_notes: 'Classic neutralization. pH at equivalence = 7. ΔH ≈ −57.3 kJ/mol.' },
-    { chem1: 'H₂SO₄', chem2: 'NaOH', risk: 'moderate', type: 'Heat Release', short: 'Highly exothermic neutralization. Handle with care.', equation: 'H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O', safety: 'Always add acid to base. Wear full PPE.', teacher_notes: 'Diprotic acid. 2:1 mole ratio required. Significant heat released.' },
-    { chem1: 'Vinegar', chem2: 'Baking Soda', risk: 'safe', type: 'Gas Evolution', short: 'Famous fizzing reaction producing CO₂.', equation: 'CH₃COOH + NaHCO₃ → CH₃COONa + H₂O + CO₂↑', safety: 'Safe for demonstrations.', teacher_notes: 'Sodium acetate product can create "hot ice" supersaturation demos.' },
-    { chem1: 'HCl', chem2: 'NaHCO₃', risk: 'safe', type: 'Gas Evolution', short: 'Produces effervescent CO₂ gas bubbles.', equation: 'HCl + NaHCO₃ → NaCl + H₂O + CO₂↑', safety: 'Use in ventilated area.', teacher_notes: 'CO₂ can be tested with limewater (turns milky).' },
-    { chem1: 'Na', chem2: 'H₂SO₄', risk: 'danger', type: 'Explosion', short: 'Extremely dangerous! Violent exothermic reaction.', equation: '2Na + H₂SO₄ → Na₂SO₄ + H₂↑', safety: 'Never attempt in school lab. Simulation only.', teacher_notes: 'More dangerous than Na + water. Concentrated acid adds thermal energy.' },
-    { chem1: 'AgNO₃', chem2: 'NaCl', risk: 'safe', type: 'Precipitation', short: 'White curdy precipitate of silver chloride.', equation: 'AgNO₃ + NaCl → AgCl↓ + NaNO₃', safety: 'AgNO₃ stains skin. Wear gloves.', teacher_notes: 'AgCl is photosensitive — basis of photography. Teaches solubility rules and Ksp.' },
-    { chem1: 'Fe', chem2: 'CuSO₄', risk: 'safe', type: 'Displacement', short: 'Iron displaces copper. Solution turns green.', equation: 'Fe + CuSO₄ → FeSO₄ + Cu', safety: 'Standard lab safety.', teacher_notes: 'Demonstrates reactivity series. Copper coats iron nail in ~30 min.' },
-    { chem1: 'Mg', chem2: 'HCl', risk: 'moderate', type: 'Gas Evolution', short: 'Vigorous reaction producing hydrogen gas.', equation: 'Mg + 2HCl → MgCl₂ + H₂↑', safety: 'Use dilute acid. Keep away from flames.', teacher_notes: 'Great for rate-of-reaction experiments. "Squeaky pop" test for H₂.' },
-    { chem1: 'Zn', chem2: 'HCl', risk: 'moderate', type: 'Gas Evolution', short: 'Moderate reaction speed with H₂ evolution.', equation: 'Zn + 2HCl → ZnCl₂ + H₂↑', safety: 'Wear goggles. Use dilute acid.', teacher_notes: 'Slower than Mg+HCl — illustrates reactivity trends.' },
-    { chem1: 'Zn', chem2: 'CuSO₄', risk: 'safe', type: 'Displacement', short: 'Zinc displaces copper. Solution decolorizes.', equation: 'Zn + CuSO₄ → ZnSO₄ + Cu', safety: 'Standard lab safety.', teacher_notes: 'Compare with Fe + CuSO₄ to teach electrochemistry.' },
-    { chem1: 'H₂O₂', chem2: 'KNO₃', risk: 'moderate', type: 'Decomposition', short: 'Catalyzed decomposition producing oxygen gas.', equation: '2H₂O₂ → 2H₂O + O₂↑', safety: 'Keep O₂ away from flames.', teacher_notes: 'Test O₂ with glowing splint (relights). Compare with MnO₂ catalyst.' },
-    { chem1: 'Mg', chem2: 'H₂O', risk: 'moderate', type: 'Displacement', short: 'Slow at room temp. Reacts well with steam.', equation: 'Mg + 2H₂O → Mg(OH)₂ + H₂↑', safety: 'Handle with care if using steam.', teacher_notes: 'Mg(OH)₂ is "milk of magnesia" — an antacid.' },
-    { chem1: 'Zn', chem2: 'H₂SO₄', risk: 'moderate', type: 'Gas Evolution', short: 'Steady evolution of hydrogen gas.', equation: 'Zn + H₂SO₄ → ZnSO₄ + H₂↑', safety: 'Use dilute acid only!', teacher_notes: 'Concentrated H₂SO₄ produces SO₂ instead of H₂ — important distinction.' },
-];
+// Convert REACTIONS object to array format for the guide
+function getLocalReactions() {
+    const reactions = [];
+    const getChemName = (id) => CHEMICALS.find(c => c.id === id)?.name || id;
+    
+    Object.entries(REACTIONS).forEach(([key, data]) => {
+        const [chem1Id, chem2Id] = key.split('+');
+        reactions.push({
+            chem1: getChemName(chem1Id),
+            chem2: getChemName(chem2Id),
+            risk: data.risk,
+            type: data.type,
+            short: data.message,
+            equation: data.equation,
+            safety: data.message,
+            teacher_notes: data.teacher_notes || '',
+        });
+    });
+    
+    return reactions;
+}
 
 export default function GuidePage() {
     const [data, setData] = useState([]);
@@ -35,7 +40,7 @@ export default function GuidePage() {
         fetch(API_URL)
             .then(res => { if (!res.ok) throw new Error(); return res.json(); })
             .then(d => { setData(d); setLoading(false); })
-            .catch(() => { setData(FALLBACK_DATA); setLoading(false); });
+            .catch(() => { setData(getLocalReactions()); setLoading(false); });
     }, []);
 
     // Filter + search
@@ -63,7 +68,182 @@ export default function GuidePage() {
     }), [data]);
 
     return (
-        <div className="guide-page">
+        <>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
+                
+                .guide-page {
+                    font-family: 'Syne', sans-serif;
+                    background: linear-gradient(160deg, #0a1929 0%, #071520 50%, #0a1929 100%);
+                    min-height: 100vh;
+                    padding: 40px 20px;
+                    position: relative;
+                }
+                
+                .guide-page::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background-image: linear-gradient(rgba(0,188,212,0.03) 1px, transparent 1px), 
+                                      linear-gradient(90deg, rgba(0,188,212,0.03) 1px, transparent 1px);
+                    background-size: 40px 40px;
+                    pointer-events: none;
+                }
+                
+                .guide-hero {
+                    max-width: 1200px;
+                    margin: 0 auto 40px;
+                    text-align: center;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .guide-title {
+                    font-size: 3rem;
+                    font-weight: 800;
+                    color: #e0f7fa;
+                    margin: 0 0 12px;
+                    letter-spacing: 0.5px;
+                }
+                
+                .guide-subtitle {
+                    font-size: 1rem;
+                    color: #546e7a;
+                    margin: 0 0 32px;
+                    letter-spacing: 0.3px;
+                }
+                
+                .guide-stats {
+                    display: flex;
+                    gap: 16px;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+                
+                .guide-stat {
+                    padding: 16px 28px;
+                    background: rgba(0,188,212,0.08);
+                    border: 1px solid rgba(0,188,212,0.2);
+                    border-radius: 12px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 6px;
+                    min-width: 100px;
+                    transition: all 0.3s ease;
+                }
+                
+                .guide-stat:hover {
+                    background: rgba(0,188,212,0.12);
+                    border-color: rgba(0,188,212,0.35);
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 24px rgba(0,188,212,0.15);
+                }
+                
+                .guide-stat.safe {
+                    background: rgba(34,197,94,0.08);
+                    border-color: rgba(34,197,94,0.2);
+                }
+                
+                .guide-stat.safe:hover {
+                    background: rgba(34,197,94,0.12);
+                    border-color: rgba(34,197,94,0.35);
+                    box-shadow: 0 8px 24px rgba(34,197,94,0.15);
+                }
+                
+                .guide-stat.moderate {
+                    background: rgba(255,152,0,0.08);
+                    border-color: rgba(255,152,0,0.2);
+                }
+                
+                .guide-stat.moderate:hover {
+                    background: rgba(255,152,0,0.12);
+                    border-color: rgba(255,152,0,0.35);
+                    box-shadow: 0 8px 24px rgba(255,152,0,0.15);
+                }
+                
+                .guide-stat.danger {
+                    background: rgba(239,68,68,0.08);
+                    border-color: rgba(239,68,68,0.2);
+                }
+                
+                .guide-stat.danger:hover {
+                    background: rgba(239,68,68,0.12);
+                    border-color: rgba(239,68,68,0.35);
+                    box-shadow: 0 8px 24px rgba(239,68,68,0.15);
+                }
+                
+                .stat-num {
+                    font-size: 2rem;
+                    font-weight: 800;
+                    color: #00bcd4;
+                    font-family: 'JetBrains Mono', monospace;
+                }
+                
+                .guide-stat.safe .stat-num {
+                    color: #22c55e;
+                }
+                
+                .guide-stat.moderate .stat-num {
+                    color: #ff9800;
+                }
+                
+                .guide-stat.danger .stat-num {
+                    color: #ef4444;
+                }
+                
+                .stat-label {
+                    font-size: 0.7rem;
+                    color: #546e7a;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    font-family: 'JetBrains Mono', monospace;
+                }
+                
+                .guide-toolbar {
+                    max-width: 1200px;
+                    margin: 0 auto 32px;
+                    display: flex;
+                    gap: 16px;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .guide-grid {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                    gap: 20px;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .guide-loading, .guide-empty {
+                    max-width: 1200px;
+                    margin: 60px auto;
+                    text-align: center;
+                    color: #546e7a;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .spinner {
+                    width: 40px;
+                    height: 40px;
+                    margin: 0 auto 16px;
+                    border: 3px solid rgba(0,188,212,0.1);
+                    border-top-color: #00bcd4;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+                
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
+            
+            <div className="guide-page">
             <div className="guide-hero">
                 <h1 className="guide-title">📖 Reaction Guide</h1>
                 <p className="guide-subtitle">Explore our AI-powered chemistry safety knowledge base</p>
@@ -94,6 +274,7 @@ export default function GuidePage() {
                     {filtered.map((r, i) => <ReactionCard key={i} reaction={r} />)}
                 </div>
             )}
-        </div>
+            </div>
+        </>
     );
 }

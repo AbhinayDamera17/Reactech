@@ -41,9 +41,17 @@ body {
   font-family: var(--font);
   background: var(--bg-primary);
   color: var(--text-primary);
-  min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* ───────────────────────────── PARTICLES BG ───────────────────────────── */
@@ -192,11 +200,12 @@ body {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 420px;
   gap: 24px;
-  max-width: 1340px;
-  margin: 28px auto;
-  padding: 0 28px;
+  max-width: 1600px;
+  margin: 20px auto;
+  padding: 0 24px;
+  align-items: stretch;
 }
 
 @media (max-width: 960px) {
@@ -302,10 +311,20 @@ body {
   padding-bottom: 6px;
 }
 
+/* Action buttons container */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* Mix button */
 .mix-btn {
+  flex: 1;
+  min-width: 180px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 14px 36px;
   background: linear-gradient(135deg, var(--accent), #818cf8);
@@ -354,25 +373,107 @@ body {
   font-size: 1.2rem;
 }
 
+/* Clear button */
+.clear-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-family: var(--font);
+  font-size: .9rem;
+  font-weight: 600;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.clear-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+}
+
+.clear-btn:active {
+  transform: scale(.97);
+}
+
+.clear-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.clear-btn-icon {
+  font-size: 1.1rem;
+}
+
 /* Beaker */
 .beaker-area {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: relative;
-  height: 200px;
+  height: 220px;
   margin: 28px 0 20px;
 }
 
 .beaker {
   position: relative;
-  width: 100px;
-  height: 140px;
-  border: 3px solid rgba(255, 255, 255, .15);
+  width: 120px;
+  height: 160px;
+  border-left: 4px solid rgba(200, 220, 240, 0.4);
+  border-right: 4px solid rgba(200, 220, 240, 0.4);
+  border-bottom: 4px solid rgba(200, 220, 240, 0.5);
   border-top: none;
-  border-radius: 0 0 18px 18px;
+  border-radius: 0 0 24px 24px;
   overflow: hidden;
-  background: rgba(255, 255, 255, .03);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.02) 50%, 
+    rgba(255, 255, 255, 0.08) 100%);
+  box-shadow: 
+    inset 4px 0 8px rgba(255, 255, 255, 0.15),
+    inset -4px 0 8px rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass shine effect */
+.beaker::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Glass reflection */
+.beaker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 8px;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(to left, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 10;
 }
 
 .liquid {
@@ -381,7 +482,215 @@ body {
   left: 0;
   right: 0;
   transition: height .8s cubic-bezier(.4, 0, .2, 1), background 1s;
-  border-radius: 0 0 14px 14px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 
+    inset 0 4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Individual liquid layers before mixing */
+.liquid-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  transition: height .6s cubic-bezier(.4, 0, .2, 1), bottom .6s cubic-bezier(.4, 0, .2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: liquidPour .8s ease-out;
+  box-shadow: 
+    inset 0 3px 6px rgba(0, 0, 0, 0.15),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+/* Liquid wave animation */
+.liquid-layer:not(.solid-layer)::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -50%;
+  width: 200%;
+  height: 10px;
+  background: radial-gradient(ellipse at center, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    transparent 70%);
+  animation: liquidWave 2s ease-in-out infinite;
+}
+
+@keyframes liquidWave {
+  0%, 100% {
+    transform: translateX(0) scaleY(1);
+  }
+  25% {
+    transform: translateX(-10%) scaleY(1.2);
+  }
+  50% {
+    transform: translateX(0) scaleY(0.8);
+  }
+  75% {
+    transform: translateX(10%) scaleY(1.2);
+  }
+}
+
+/* Solid layer (no background, just particles) */
+.solid-layer {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+/* Solid particles container */
+.solid-particles {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+/* Individual solid particle */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  top: -20px;
+  animation: particleSink 1.5s ease-in forwards;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes particleSink {
+  0% {
+    top: -20px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 8px);
+    opacity: 1;
+  }
+}
+
+/* Solid label */
+.solid-label {
+  position: absolute;
+  bottom: 4px;
+  font-size: .7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Liquid surface reflection */
+.liquid-layer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 30%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.4) 70%,
+    transparent 100%);
+  animation: surfaceShimmer 3s ease-in-out infinite;
+}
+
+@keyframes surfaceShimmer {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Liquid shine on left side */
+.liquid-layer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 16px;
+  height: 100%;
+  background: linear-gradient(to right,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+@keyframes liquidPour {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.liquid-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+  text-shadow: 
+    0 1px 2px rgba(255, 255, 255, 0.5),
+    0 -1px 1px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.3));
+}
+
+/* Separation line between two chemicals */
+.separation-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 10%,
+    rgba(255, 255, 255, 0.5) 50%, 
+    rgba(255, 255, 255, 0.3) 90%, 
+    transparent 100%);
+  transition: bottom .6s cubic-bezier(.4, 0, .2, 1);
+  animation: separationShimmer 2s ease-in-out infinite;
+  z-index: 6;
+  box-shadow: 
+    0 1px 2px rgba(255, 255, 255, 0.2),
+    0 -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes separationShimmer {
+  0%, 100% {
+    opacity: 0.7;
+    box-shadow: 
+      0 1px 2px rgba(255, 255, 255, 0.2),
+      0 -1px 2px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      0 1px 3px rgba(255, 255, 255, 0.4),
+      0 -1px 3px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .bubbles {
@@ -391,26 +700,39 @@ body {
   right: 0;
   height: 100%;
   pointer-events: none;
+  z-index: 7;
 }
 
 .bubble {
   position: absolute;
   bottom: 0;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, .35);
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle at 30% 30%, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    rgba(255, 255, 255, 0.2) 100%);
   border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   animation: rise 1.2s ease-in infinite;
+  box-shadow: 
+    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes rise {
   0% {
     transform: translateY(0) scale(1);
-    opacity: .8;
+    opacity: 0;
   }
-
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
   100% {
-    transform: translateY(-120px) scale(.4);
+    transform: translateY(-140px) scale(0.3);
     opacity: 0;
   }
 }
@@ -924,10 +1246,12 @@ body {
 }
 
 /* Page content wrapper */
+/* Page content wrapper */
 .page-content {
   position: relative;
   z-index: 1;
   animation: fadeSlideUp .35s ease;
+  flex: 1;
 }
 
 /* ───────────────────────────── GUIDE PAGE ───────────────────────────── */
@@ -1303,8 +1627,721 @@ body {
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 20px;
+  padding: 12px 20px;
   font-size: .75rem;
   color: var(--text-muted);
   border-top: 1px solid var(--border-glass);
+  margin-top: auto;
+}
+
+/* ───────────────────────────── SEARCHABLE SELECT ───────────────────────────── */
+.searchable-select {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.searchable-label {
+    display: block;
+    font-size: .75rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #546e7a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.searchable-trigger {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, .03);
+    border: 1.5px solid rgba(255, 255, 255, .08);
+    border-radius: 10px;
+    color: #e0f7fa;
+    font-family: 'Syne', sans-serif;
+    font-size: .88rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.searchable-trigger:hover {
+    border-color: rgba(0,188,212, .35);
+    background: rgba(0,188,212, .06);
+}
+
+.searchable-trigger:focus-within {
+    border-color: rgba(0,188,212, .5);
+    box-shadow: 0 0 0 3px rgba(0,188,212, .15);
+}
+
+.searchable-value {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #cfd8dc;
+}
+
+.searchable-arrow {
+    font-size: .7rem;
+    color: #546e7a;
+    transition: transform 0.2s ease;
+    margin-left: 8px;
+}
+
+.searchable-arrow.open {
+    transform: rotate(180deg);
+    color: #00bcd4;
+}
+
+.searchable-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #0a1929;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,188,212, .25);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .8), 0 0 0 1px rgba(0,188,212, .15);
+    z-index: 1000;
+    animation: dropdownSlide 0.2s ease;
+    overflow: hidden;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.searchable-search {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(0,188,212, .1);
+    background: rgba(0,188,212, .03);
+}
+
+.searchable-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(0,188,212, .2);
+    border-radius: 7px;
+    color: #cfd8dc;
+    font-family: 'Syne', sans-serif;
+    font-size: .85rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchable-input:focus {
+    border-color: rgba(0,188,212, .5);
+    box-shadow: 0 0 0 2px rgba(0,188,212, .15);
+    background: rgba(0,188,212, .06);
+}
+
+.searchable-input::placeholder {
+    color: #546e7a;
+}
+
+.searchable-options {
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 4px;
+    background: #071520;
+}
+
+.searchable-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.searchable-options::-webkit-scrollbar-track {
+    background: rgba(0,0,0, .2);
+    border-radius: 3px;
+}
+
+.searchable-options::-webkit-scrollbar-thumb {
+    background: rgba(0,188,212, .3);
+    border-radius: 3px;
+}
+
+.searchable-options::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,188,212, .5);
+}
+
+.searchable-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.15s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid transparent;
+}
+
+.searchable-option:hover {
+    background: rgba(0,188,212, .08);
+    border-color: rgba(0,188,212, .15);
+}
+
+.searchable-option.selected {
+    background: rgba(0,188,212, .12);
+    border-color: rgba(0,188,212, .3);
+}
+
+.option-name {
+    flex: 1;
+    font-size: .85rem;
+    color: #e0f7fa;
+    font-weight: 500;
+}
+
+.option-formula {
+    font-size: .78rem;
+    color: #00bcd4;
+    font-weight: 700;
+    padding: 3px 10px;
+    background: rgba(0,188,212, .12);
+    border-radius: 6px;
+    border: 1px solid rgba(0,188,212, .25);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+}
+
+.searchable-empty {
+    padding: 20px;
+    text-align: center;
+    color: #546e7a;
+    font-size: .85rem;
+}
+
+/* ───────────────────────────── LAB INSTRUCTIONS ───────────────────────────── */
+.lab-instructions {
+  margin: 16px 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instruction-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xs);
+  animation: fadeSlideUp 0.4s ease;
+  transition: var(--transition);
+}
+
+.instruction-card.active {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+.instruction-card.result-safe {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+}
+
+.instruction-card.result-moderate {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.3);
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.15);
+}
+
+.instruction-card.result-danger {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+  }
+}
+
+.instruction-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.instruction-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.instruction-card.active .instruction-text {
+  color: var(--accent);
+}
+
+.instruction-card.result-safe .instruction-text {
+  color: var(--success);
+}
+
+.instruction-card.result-moderate .instruction-text {
+  color: var(--warning);
+}
+
+.instruction-card.result-danger .instruction-text {
+  color: var(--danger);
+}
+
+/* ───────────────────────────── LITMUS PAPER ───────────────────────────── */
+.litmus-container {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xs);
+  animation: fadeSlideUp 0.5s ease;
+}
+
+.litmus-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.litmus-icon {
+  font-size: 1.2rem;
+}
+
+.litmus-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.litmus-paper-holder {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  min-height: 120px;
+}
+
+.litmus-paper {
+  width: 60px;
+  height: 120px;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  transition: background 0.8s ease;
+  animation: litmusDip 1s ease-out;
+  overflow: hidden;
+}
+
+@keyframes litmusDip {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Paper texture */
+.litmus-texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.05) 2px,
+    rgba(255, 255, 255, 0.05) 4px
+  );
+  pointer-events: none;
+}
+
+.litmus-result {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: fadeIn 0.6s ease 0.4s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.ph-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.ph-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.litmus-instruction {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  width: 100px;
+}
+
+/* pH Scale */
+.ph-scale {
+  margin-top: 12px;
+}
+
+.ph-scale-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right,
+    #ef4444 0%,
+    #fb923c 20%,
+    #fbbf24 35%,
+    #a855f7 50%,
+    #60a5fa 65%,
+    #3b82f6 80%,
+    #2563eb 100%
+  );
+  margin-bottom: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ph-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: left 0.6s ease;
+  animation: markerPulse 2s ease-in-out infinite;
+}
+
+@keyframes markerPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.ph-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.ph-scale-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ph-scale-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ph-scale-text span:first-child {
+  color: #ef4444;
+}
+
+.ph-scale-text span:last-child {
+  color: #3b82f6;
+}
+
+.tutor-call-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 380px;
+  height: 300px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid cyan;
+  border-radius: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tutor-call-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(0, 200, 255, 0.1);
+  color: cyan;
+  font-size: 14px;
+}
+
+.end-call-btn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.start-tutor-btn {
+  background: linear-gradient(135deg, #00bcd4, #0097a7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* ───────────────────────────── LITMUS PAPER STYLES ───────────────────────────── */
+.litmus-container {
+  margin-top: 24px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.litmus-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.litmus-icon {
+  font-size: 18px;
+}
+
+.litmus-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e0f7fa;
+  letter-spacing: 0.5px;
+  font-family: 'Syne', sans-serif;
+}
+
+.litmus-paper-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.litmus-paper {
+  width: 120px;
+  height: 180px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.litmus-texture {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px
+    );
+  pointer-events: none;
+}
+
+.litmus-result {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ph-value {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e0f7fa;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.ph-label {
+  display: block;
+  font-size: 10px;
+  color: #78909c;
+  margin-top: 2px;
+  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.litmus-instruction {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.litmus-instruction span {
+  font-size: 12px;
+  color: #546e7a;
+  font-style: italic;
+}
+
+.ph-scale {
+  position: relative;
+}
+
+.ph-scale-bar {
+  height: 8px;
+  background: linear-gradient(
+    to right,
+    #ef4444 0%,
+    #fb923c 25%,
+    #a855f7 50%,
+    #60a5fa 75%,
+    #3b82f6 100%
+  );
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.ph-marker {
+  position: absolute;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  background: #e0f7fa;
+  border: 2px solid #00bcd4;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: left 0.6s ease;
+  box-shadow: 0 0 8px rgba(0, 188, 212, 0.5);
+}
+
+.ph-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #78909c;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 4px;
+}
+
+.ph-scale-center {
+  color: #a855f7 !important;
+  font-weight: 700;
+}
+
+.ph-scale-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #546e7a;
+  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Animation for litmus paper color change */
+.litmus-paper {
+  animation: litmus-dip 0.8s ease-in-out;
+}
+
+@keyframes litmus-dip {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  60% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
+/* Shimmer animation for empty state */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }

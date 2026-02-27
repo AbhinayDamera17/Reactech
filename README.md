@@ -1,11 +1,12 @@
 # ⚗️ Reactech — Virtual Chemistry Lab
 
-> **An AI-powered, gesture-controlled virtual chemistry lab that uses real-time hand tracking to simulate chemical reactions with dramatic visual effects and intelligent mistake detection.**
+> **An AI-powered, gesture-controlled virtual chemistry lab that uses real-time hand tracking to simulate chemical reactions with dramatic visual effects, intelligent mistake detection, and Gemini AI assistance.**
 
 [![Built with React](https://img.shields.io/badge/React-19-61dafb?logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-7-646cff?logo=vite)](https://vitejs.dev)
 [![MediaPipe](https://img.shields.io/badge/MediaPipe-Hands-4285f4?logo=google)](https://mediapipe.dev)
 [![Three.js](https://img.shields.io/badge/Three.js-3D_FX-black?logo=three.js)](https://threejs.org)
+[![Gemini AI](https://img.shields.io/badge/Gemini-AI_Powered-4285f4?logo=google)](https://ai.google.dev/)
 
 ---
 
@@ -13,11 +14,13 @@
 
 - [About the Project](#about-the-project)
 - [Key Features](#key-features)
+- [What's New](#whats-new)
 - [Tech Stack](#tech-stack)
 - [Architecture Overview](#architecture-overview)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Usage Guide](#usage-guide)
+- [AI Integration](#ai-integration)
 - [Capstone Questions & Answers](#capstone-questions--answers)
 - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
 
@@ -25,12 +28,15 @@
 
 ## About the Project
 
-**Reactech** is a web-based virtual chemistry laboratory designed for students and teachers. It allows users to simulate chemical reactions in two modes:
+**Reactech** is a cutting-edge web-based virtual chemistry laboratory designed for students and teachers. It combines real-time hand tracking, AI-powered assistance, and immersive visual effects to create an engaging and safe learning environment.
 
-- **Manual Lab** — Select two chemicals from dropdowns, click "Mix", and see the reaction result with AI-generated explanations.
-- **Live Lab** — Uses your webcam and **MediaPipe hand tracking** to detect real hand gestures. Assign chemicals to each hand, bring your hands together, and watch the reaction happen with **real-time visual effects** (explosions, smoke, sparkles).
+### Three Interactive Modes:
 
-The application includes an **AI Mistake Detection System** that acts as a virtual lab supervisor — detecting unsafe gestures, wrong chemical pairings, and providing corrective guidance in real-time.
+- **Manual Lab** — Select chemicals from searchable dropdowns, mix them with realistic beaker visualization, interactive pH testing with litmus paper, and get AI-powered explanations
+- **Live Lab** — Uses webcam and **MediaPipe hand tracking** to detect real hand gestures. Assign chemicals to each hand, bring them together, and watch reactions with **real-time 3D effects**
+- **Reaction Guide** — Comprehensive encyclopedia of all available reactions with advanced filtering and search capabilities
+
+The application features an **AI Lab Assistant** powered by Google Gemini that provides real-time chemistry guidance, safety advice, and educational explanations.
 
 ---
 
@@ -39,14 +45,41 @@ The application includes an **AI Mistake Detection System** that acts as a virtu
 | Feature | Description |
 |---------|-------------|
 | 🖐️ **Real-time Hand Tracking** | MediaPipe Hands detects and tracks both hands at 30fps with smoothed coordinates |
-| 🧪 **15 Chemicals & 14 Reactions** | Includes acids, bases, metals, and salts with full reaction data |
-| 💥 **Dramatic Visual Effects** | Risk-based effects: sparkles (safe), smoke + sparks (moderate), fireball + shockwave (danger) |
-| 🤖 **AI Mistake Detection** | Validates chemical selections, detects unsafe gestures, suggests alternatives |
-| 📚 **Reaction Guide** | Searchable encyclopedia of all available reactions with filtering by type and risk |
-| 👨‍🏫 **Teacher Mode** | Extended notes, mistake logs, and detailed teacher-specific content |
+| 🧪 **35 Chemicals & 44+ Reactions** | Comprehensive database including acids, bases, metals, salts, and organic compounds |
+| 💥 **Dramatic Visual Effects** | Risk-based 3D effects: sparkles (safe), smoke + sparks (moderate), fireball + shockwave (danger) |
+| 🤖 **Gemini AI Assistant** | Google Gemini-powered chat assistant for chemistry questions and safety guidance |
+| 🔍 **Searchable Chemical Selection** | Type-to-filter dropdowns with formula and name search |
+| 🧪 **Realistic Beaker Visualization** | Layered chemicals with liquid animations, solid particles, and glass effects |
+| 🧪 **Interactive Litmus Paper pH Testing** | Real-time pH testing with color-changing litmus paper and educational pH scale |
+| 📚 **Advanced Reaction Guide** | Searchable encyclopedia with risk-based filtering and detailed explanations |
 | 🎯 **Gesture-Based Triggering** | Bring hands together to trigger reactions — zero-delay ref-based engine |
-| 💬 **AI Chat Assistant** | Ask chemistry questions and get instant educational answers |
+| 💬 **Intelligent Mistake Detection** | AI-powered system that validates reactions and provides safety guidance |
 | 🖥️ **Debug Mode** | Real-time FPS, hand distance, tracking quality, and API status overlay |
+
+---
+
+## What's New
+
+### 🚀 Latest Updates (v2.1)
+
+- **🧪 Interactive Litmus Paper**: Added real-time pH testing to Lab Workspace with color-changing indicators and educational pH scale
+- **🤖 Gemini AI Integration**: Replaced local Q&A with Google Gemini AI for comprehensive chemistry assistance
+- **🔍 Enhanced Chemical Database**: Expanded from 15 to 35 chemicals with 44+ reactions
+- **🧪 Realistic Beaker Effects**: Added layered chemical visualization with liquid animations and solid particles
+- **🎨 Unified Dark Theme**: Consistent cyan-accented dark theme across all three modes
+- **📱 Improved UX**: Searchable chemical dropdowns with type-to-filter functionality
+- **🔧 Better Performance**: Fixed height constraints and optimized rendering
+- **🧹 Clear Beaker Function**: One-click reset for starting fresh experiments
+
+### 🎯 Key Improvements
+
+- **Interactive pH Testing**: Real-time litmus paper that changes color based on chemical pH levels
+- **Educational pH Scale**: Visual pH scale (0-14) with moving marker and acid/base classifications
+- **Searchable Dropdowns**: Type chemical names or formulas to quickly find compounds
+- **Layered Chemical Display**: See chemicals as separate layers before mixing, with realistic physics
+- **Enhanced Visual Effects**: Improved glass materials, liquid surfaces, and particle systems
+- **AI-Powered Responses**: Get detailed explanations about chemical properties, safety, and real-world applications
+- **Responsive Layout**: Better spacing and alignment across all screen sizes
 
 ---
 
@@ -54,12 +87,13 @@ The application includes an **AI Mistake Detection System** that acts as a virtu
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| **Frontend Framework** | React 19 | Component-based UI |
-| **Build Tool** | Vite 7 | Fast HMR dev server |
+| **Frontend Framework** | React 19 | Component-based UI with concurrent features |
+| **Build Tool** | Vite 7 | Fast HMR dev server and optimized builds |
 | **Hand Tracking** | MediaPipe Tasks Vision | Real-time hand landmark detection |
-| **3D/Effects** | Three.js, @react-three/fiber, @react-three/drei | 3D rendering pipeline |
-| **Backend API** | Python FastAPI (port 8000) | AI-powered reaction analysis |
-| **Styling** | Vanilla CSS | Dark theme with glassmorphism |
+| **3D/Effects** | Three.js, @react-three/fiber, @react-three/drei | Hardware-accelerated 3D rendering |
+| **AI Assistant** | Google Gemini API | Natural language chemistry assistance |
+| **Styling** | Vanilla CSS | Dark glassmorphism theme with animations |
+| **State Management** | React Hooks | Local state with useRef for performance-critical paths |
 
 ---
 
@@ -69,8 +103,10 @@ The application includes an **AI Mistake Detection System** that acts as a virtu
 ┌──────────────────────────────────────────────────────────────┐
 │                        REACTECH APP                          │
 ├──────────────┬──────────────┬──────────────┬─────────────────┤
-│   Manual Lab │   Live Lab   │ Reaction     │  AI Chat        │
-│              │              │ Guide        │  Assistant      │
+│   Manual Lab │   Live Lab   │ Reaction     │  Gemini AI      │
+│   • Beaker   │   • Camera   │ Guide        │  Assistant      │
+│   • Dropdowns│   • Tracking │ • Search     │  • Chat         │
+│   • pH Test  │   • Effects  │ • Filter     │  • Context      │
 ├──────────────┴──────────────┴──────────────┴─────────────────┤
 │                    CORE SERVICES                             │
 │  ┌─────────────┐ ┌──────────────────┐ ┌───────────────────┐ │
@@ -79,13 +115,13 @@ The application includes an **AI Mistake Detection System** that acts as a virtu
 │  └──────┬──────┘ └────────┬─────────┘ └────────┬──────────┘ │
 │         │                 │                     │            │
 │  ┌──────▼──────┐ ┌────────▼─────────┐ ┌────────▼──────────┐ │
-│  │ CameraFeed  │ │ ReactionEffects  │ │ ReactionValidator │ │
-│  │ ChemOverlay │ │ 3D               │ │ GestureAnalyzer   │ │
-│  │             │ │                  │ │ SafetyAdvisor     │ │
+│  │ CameraFeed  │ │ ReactionEffects  │ │ Gemini Service    │ │
+│  │ ChemOverlay │ │ 3D + Particles   │ │ API Integration   │ │
+│  │ TestTube    │ │ LitmusPaper      │ │ Context Building  │ │
 │  └─────────────┘ └──────────────────┘ └───────────────────┘ │
 ├──────────────────────────────────────────────────────────────┤
-│               chemicals.js (Local Reaction Database)         │
-│               api.js (FastAPI Backend Integration)            │
+│               chemicals.js (Expanded Reaction Database)      │
+│               gemini.js (AI Service Integration)             │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -98,32 +134,37 @@ Reactech/
 ├── index.html                  # Entry HTML
 ├── package.json                # Dependencies & scripts
 ├── vite.config.js              # Vite configuration
+├── .env.example                # Environment variables template
+├── GEMINI_SETUP.md            # AI setup instructions
 └── src/
     ├── main.jsx                # React entry point
     ├── App.jsx                 # Root app with tab navigation
-    ├── App.css                 # Global styles
-    ├── LiveLab.css             # Live Lab specific styles + effect animations
-    ├── api.js                  # Backend API integration
-    ├── chemicals.js            # Chemical database & local reaction data
+    ├── App.css                 # Global styles and theme
+    ├── LiveLab.css             # Live Lab specific styles + animations
+    ├── chemicals.js            # Expanded chemical database (35 chemicals, 44+ reactions)
+    ├── services/
+    │   └── gemini.js           # Google Gemini AI integration
     ├── components/
-    │   ├── LiveLabPage.jsx     # Live Lab — camera + hand tracking + reaction
+    │   ├── LiveLabPage.jsx     # Live Lab — camera + hand tracking + reactions
     │   ├── HandTracker.jsx     # MediaPipe hand detection & smoothing
     │   ├── CameraFeed.jsx      # Webcam video capture
     │   ├── ChemicalOverlay.jsx # Chemical labels on tracked hands
     │   ├── GestureReactionEngine.jsx  # Gesture-based reaction trigger
-    │   ├── ReactionEffects3D.jsx      # Visual effects (explosion/smoke/sparkle)
-    │   ├── ExplosionEffect.jsx # Legacy explosion overlay
-    │   ├── SmokeEffect.jsx     # Legacy smoke overlay
+    │   ├── ReactionEffects3D.jsx      # 3D visual effects system
+    │   ├── ExplosionEffect.jsx # Explosion particle effects
+    │   ├── SmokeEffect.jsx     # Smoke and steam effects
     │   ├── MistakeOverlay.jsx  # Warning cards & danger modals
-    │   ├── MistakeLog.jsx      # Session mistake history (Teacher Mode)
-    │   ├── ReactionPanel.jsx   # Manual Lab reaction UI
+    │   ├── MistakeLog.jsx      # Session mistake history
+    │   ├── ReactionPanel.jsx   # Manual Lab with beaker visualization
     │   ├── ReactionCard.jsx    # Individual reaction display card
     │   ├── GuidePage.jsx       # Reaction Guide encyclopedia
-    │   ├── AssistantPanel.jsx  # AI chat assistant
-    │   ├── TeacherPanel.jsx    # Teacher mode toggle & panel
-    │   ├── FilterDropdown.jsx  # Dropdown filter component
+    │   ├── AssistantPanel.jsx  # Gemini AI chat assistant
+    │   ├── LitmusPaper.jsx     # Interactive pH testing component
+    │   ├── TestTube.jsx        # Test tube visualization for Live Lab
+    │   ├── SearchableSelect.jsx # Type-to-filter dropdown component
+    │   ├── FilterDropdown.jsx  # Advanced filtering component
     │   ├── SearchBar.jsx       # Search input component
-    │   └── RiskBadge.jsx       # Risk level badge component
+    │   └── RiskBadge.jsx       # Risk level indicator
     └── mistakes/
         ├── MistakeDetector.js  # Orchestrator for all mistake checks
         ├── ReactionValidator.js # Chemical pair validation
@@ -141,6 +182,7 @@ Reactech/
 - **npm** ≥ 9
 - A **webcam** (for Live Lab)
 - Modern browser (Chrome/Edge recommended for MediaPipe support)
+- **Google Gemini API Key** (optional, for AI assistant)
 
 ### Installation
 
@@ -149,177 +191,150 @@ Reactech/
 git clone https://github.com/yourusername/reactech.git
 cd reactech
 
-# Install dependencies
+# Install frontend dependencies
 npm install
+
+# Set up environment variables (optional)
+cp .env.example .env
+# Edit .env and add your Gemini API key
 
 # Start the development server
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`.
+The frontend will be available at `http://localhost:5173`.
 
-### Backend (Optional)
+### Backend Setup (Optional but Recommended)
 
-For full AI-powered reactions, start the Python backend:
+The Python backend provides advanced chemistry analysis and AI-powered features:
 
 ```bash
+# Navigate to backend directory
 cd backend
-pip install fastapi uvicorn
-uvicorn app:app --reload --port 8000
+
+# Create virtual environment (recommended)
+python -m venv venv
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Set up backend environment variables
+cp ../.env.example .env
+# Edit .env and add your API keys
+
+# Start the backend server
+python app.py
 ```
 
-> **Note:** The app works fully offline with local fallback data. The backend enhances responses with AI analysis.
+The backend will be available at `http://localhost:8000`.
+
+**API Documentation**: Visit `http://localhost:8000/docs` for interactive API documentation.
+
+### AI Setup (Optional)
+
+To enable the Gemini AI assistant:
+
+1. Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Copy `.env.example` to `.env`
+3. Add your API key: `VITE_GEMINI_API_KEY=your_api_key_here`
+4. Restart both frontend and backend servers
+
+See `GEMINI_SETUP.md` for detailed instructions.
+
+> **Note:** The app works with three levels of functionality:
+> 1. **Frontend only**: Basic reactions with local data
+> 2. **Frontend + Gemini**: Enhanced AI chat assistant
+> 3. **Full stack**: Advanced chemistry engine + AI analysis
 
 ---
 
 ## Usage Guide
 
 ### Manual Lab
-1. Select **Chemical A** and **Chemical B** from the dropdowns
-2. Click **Mix** to trigger the reaction
-3. View the balanced equation, product, risk level, and AI explanation
-4. Toggle **Teacher Mode** for detailed notes
+1. Select **Chemical A** and **Chemical B** from the searchable dropdowns
+2. Type to filter chemicals by name or formula
+3. Watch chemicals appear as layers in the realistic beaker
+4. **Observe the Litmus Paper** — it automatically shows the pH of selected chemicals
+   - 🔴 Red: Strong acids (pH < 5)
+   - 🟠 Orange: Weak acids (pH 5-7)
+   - 🟣 Purple: Neutral (pH = 7)
+   - 🔵 Light Blue: Weak bases (pH 7-10)
+   - 🔵 Blue: Strong bases (pH > 10)
+5. Click **Mix** to trigger the reaction
+6. View the balanced equation, products, and risk assessment
+7. **Check the updated pH** — litmus paper shows the reaction's final pH
+8. Use the **pH scale reference** to understand acid/base strength
+9. Click **Clear Beaker** to start fresh
 
 ### Live Lab
 1. Navigate to the **Live Lab** tab
 2. Grant **camera permission** when prompted
-3. Select chemicals for **Left Hand** and **Right Hand**
-4. Show both hands to the camera — landmarks will appear
-5. **Bring your hands together** — the reaction triggers instantly with visual effects
-6. View results in the sidebar panel
+3. Select chemicals for **Left Hand** and **Right Hand** using searchable dropdowns
+4. Show both hands to the camera — colored landmarks will appear
+5. **Bring your hands together** — the reaction triggers instantly with 3D effects
+6. View results and explanations in the sidebar panel
 7. Toggle **Debug Mode** to see real-time tracking metrics
 
----
+### Reaction Guide
+1. Browse all available reactions in an organized grid
+2. Use the **search bar** to find specific chemicals or reactions
+3. **Filter by risk level** (Safe, Moderate, Danger) or reaction type
+4. Click any reaction card to see detailed information
+5. View balanced equations, products, and safety notes
 
-## Capstone Questions & Answers
-
-### Q1: What is the problem statement of your project?
-
-**A:** Traditional chemistry education relies heavily on physical lab sessions, which face challenges including safety risks with dangerous chemicals, limited lab access for students, high costs of consumables, and inability to repeat dangerous experiments safely. There is a need for an interactive, safe, and accessible virtual lab that provides the engagement of hands-on experimentation with the safety of a digital environment.
-
----
-
-### Q2: What is the proposed solution?
-
-**A:** **Reactech** is an AI-powered virtual chemistry lab that uses **real-time hand tracking via MediaPipe** to simulate chemical reactions through natural hand gestures. Students assign chemicals to each hand and physically bring their hands together to trigger reactions — mimicking the real-world act of mixing chemicals. The system provides:
-
-- **Instant visual feedback** (explosion, smoke, sparkle effects based on reaction risk)
-- **AI-powered mistake detection** acting as a virtual lab supervisor
-- **Comprehensive educational content** including balanced equations, safety notes, and teacher mode
-- **Zero safety risk** — dangerous reactions like Na + H₂O can be explored safely
+### AI Assistant
+1. Click the **🤖 AI** toggle to enable Gemini-powered responses
+2. Ask any chemistry question in natural language
+3. Get detailed explanations about:
+   - Chemical properties and uses
+   - Safety precautions and PPE requirements
+   - Reaction mechanisms and theory
+   - Real-world applications
+4. The AI maintains conversation context for follow-up questions
 
 ---
 
-### Q3: What technologies are used and why?
+## AI Integration
 
-**A:**
+### Gemini AI Features
 
-| Technology | Why We Chose It |
-|-----------|----------------|
-| **React 19** | Component-based architecture for modular, maintainable UI with latest concurrent features |
-| **Vite 7** | Near-instant Hot Module Replacement for rapid development iteration |
-| **MediaPipe Hands** | Google's production-grade hand landmark detection — tracks 21 landmarks per hand at 30fps in-browser |
-| **Three.js / React Three Fiber** | Hardware-accelerated 3D rendering for dramatic reaction effects |
-| **FastAPI (Python)** | High-performance async backend for AI-powered reaction analysis |
-| **CSS Animations** | GPU-accelerated particle systems for visual effects without heavy libraries |
+The Google Gemini integration provides:
 
----
+- **Natural Language Processing**: Ask questions in plain English
+- **Chemistry Expertise**: Specialized knowledge about chemical reactions, safety, and applications
+- **Contextual Responses**: Maintains conversation history for follow-up questions
+- **Educational Focus**: Responses tailored for student learning with safety emphasis
+- **Fallback Support**: Graceful degradation to local responses if API is unavailable
 
-### Q4: How does the hand tracking work?
+### Example Interactions
 
-**A:** The system uses **MediaPipe Hands** (Google's ML model) to detect hand landmarks through the webcam:
+```
+Student: "Where do we use NaOH in daily life?"
 
-1. **CameraFeed** captures the webcam stream at 640×480+ resolution
-2. **HandTracker** runs MediaPipe's hand landmarker on each video frame, detecting up to 2 hands with 21 landmarks each
-3. **Smoothing** — A 5-frame moving average smooths landmark positions to eliminate jitter
-4. **Persistence** — A grace period prevents flickering when hands momentarily leave frame
-5. **Quality Assessment** — Confidence scores drive green/yellow/red landmark coloring
-6. **GestureReactionEngine** computes the normalized distance between hand centers and triggers reactions when hands are close enough (threshold: 0.20 in normalized 0-1 space)
+AI Response: "NaOH (Sodium Hydroxide) has many daily uses:
+• Soap making - saponification of fats
+• Drain cleaners - dissolves grease and hair
+• Paper production - pulping wood
+• Food processing - pretzels, olives
+• Oven cleaners - breaks down baked-on grease
 
----
+⚠️ Caustic - handle with care!"
+```
 
-### Q5: How does the Mistake Detection System work?
+### API Configuration
 
-**A:** The Mistake Detection System acts as an **AI Lab Supervisor** with five modules:
-
-1. **ReactionValidator** — Validates chemical pairs, detects non-reactive combinations, suggests valid alternatives
-2. **GestureAnalyzer** — Monitors hand speed and shake, warns about unsafe gestures
-3. **SafetyAdvisor** — Provides safety tips and PPE reminders based on reaction risk
-4. **MistakeLogger** — Maintains a per-session log of all detected mistakes (visible in Teacher Mode)
-5. **MistakeDetector** — Orchestrates all modules and determines whether to show warnings or danger modals
-
-Detection types:
-- ❌ Same chemical selected for both hands
-- ❌ Non-reactive chemical pair (with suggestions)
-- ❌ Missing hand or chemical selection
-- ⚠️ Unsafe hand speed or shaking
-- ⚠️ Repeated dangerous reaction attempts
-
----
-
-### Q6: What are the different types of visual effects?
-
-**A:** The `ReactionEffects3D` component renders risk-based effects at the hand convergence point:
-
-| Risk Level | Effects |
-|-----------|---------|
-| 🟢 **Safe** | Green pulsing glow + expanding rings + 50 sparkle particles + 20 floating bubbles + "✅ Safe Reaction" label |
-| 🟡 **Moderate** | Amber glow + 25 smoke clouds + 60 orange sparks + 8 steam jets + light screen shake + "⚠️ Caution" label |
-| 🔴 **Danger** | White flash + fireball (inner/outer) + 3 shockwave rings + 80 debris particles + 40 embers + red overlay pulse + heavy screen shake + "🔴 DANGER" label |
-
-All particle positions are pre-computed in JavaScript using trigonometric functions and rendered via CSS custom properties (`--dx`, `--dy`) for maximum browser compatibility.
-
----
-
-### Q7: How is the reaction triggering optimized for speed?
-
-**A:** The `GestureReactionEngine` uses a **ref-based, zero-delay architecture**:
-
-- **No `setState` in the hot path** — all timing-critical data uses `useRef` to avoid React's batched state updates
-- **Normalized distance threshold (0.20)** — works at any camera resolution
-- **Runs on every render** (`useEffect` with no dependency array) for instant response
-- **Local fallback first** — triggers visual effects immediately from local `chemicals.js` data before the API call returns
-- **1.5-second debounce lock** — prevents duplicate triggers while allowing fast repeat
-
----
-
-### Q8: What chemicals and reactions are supported?
-
-**A:** The system includes **15 chemicals** and **14 pre-defined reactions** across multiple reaction types:
-
-**Chemicals:** HCl, NaOH, H₂SO₄, Na, H₂O, NaHCO₃, CH₃COOH, H₂O₂, KNO₃, AgNO₃, NaCl, Fe, CuSO₄, Mg, Zn
-
-**Reaction Types:**
-- **Neutralization** — HCl + NaOH, H₂SO₄ + NaOH
-- **Single Displacement** — Na + H₂O, Fe + CuSO₄, Mg + HCl, Zn + HCl, Zn + CuSO₄
-- **Double Displacement** — AgNO₃ + NaCl
-- **Acid-Carbonate** — HCl + NaHCO₃, CH₃COOH + NaHCO₃
-- **Decomposition** — H₂O₂ + KNO₃
-
----
-
-### Q9: What are the unique selling points (USPs) of this project?
-
-**A:**
-1. **Gesture-controlled chemistry** — First-of-its-kind hand-tracking interface for chemical reactions
-2. **AI mistake detection** — Real-time intelligent supervision that guides students, not just shows results
-3. **Risk-graduated visual effects** — Different effects for safe/moderate/danger reactions create visceral learning experiences
-4. **Zero safety risk** — Students can safely explore reactions like Na + H₂O that are too dangerous for school labs
-5. **Offline-capable** — Works entirely in-browser with local fallback data, no cloud dependency
-6. **Teacher Mode** — Dedicated mode with extended notes, mistake logs, and detailed explanations
-
----
-
-### Q10: What are the future enhancements planned?
-
-**A:**
-1. **Voice commands** — "Mix sodium with water" using Web Speech API
-2. **AR mode** — Project 3D molecules onto the real world using WebXR
-3. **Multiplayer lab** — Students collaborate on experiments via WebRTC
-4. **Assessment mode** — Graded quizzes where students must predict reaction outcomes
-5. **More chemicals** — Expand from 15 to 50+ chemicals with organic reactions
-6. **Mobile support** — Responsive layout with touch-based alternative to gestures
-7. **LMS integration** — Export results to Google Classroom or Moodle
+The Gemini service uses:
+- **Model**: `gemini-2.5-flash` (latest fast model)
+- **API Version**: `v1beta` (current stable)
+- **Temperature**: 0.7 (balanced creativity/accuracy)
+- **Max Tokens**: 500 (concise responses)
+- **Safety Settings**: Configured for educational content
 
 ---
 
@@ -328,38 +343,49 @@ All particle positions are pre-computed in JavaScript using trigonometric functi
 ### General
 
 **Q: Does the app work without a webcam?**
-A: Yes! The Manual Lab mode works fully without a webcam. Only the Live Lab requires camera access.
+A: Yes! The Manual Lab and Reaction Guide work fully without a webcam. Only the Live Lab requires camera access.
 
 **Q: Does the app need an internet connection?**
-A: No. All reaction data is stored locally in `chemicals.js`. The backend API is optional and only enhances AI explanations.
+A: No for basic functionality. All reaction data is stored locally. Internet is only needed for the Gemini AI assistant, which has local fallbacks.
 
 **Q: Which browsers are supported?**
-A: Chrome and Edge are recommended for best MediaPipe support. Firefox works for Manual Lab but may have limited hand tracking support.
+A: Chrome and Edge are recommended for best MediaPipe support. Firefox works for Manual Lab but may have limited hand tracking capabilities.
+
+### AI Assistant
+
+**Q: How do I enable the AI assistant?**
+A: Get a free Gemini API key from Google AI Studio, add it to your `.env` file as `VITE_GEMINI_API_KEY`, and restart the server. See `GEMINI_SETUP.md` for details.
+
+**Q: What can I ask the AI?**
+A: Anything chemistry-related! Ask about chemical properties, safety procedures, real-world applications, reaction mechanisms, or general chemistry concepts.
+
+**Q: Does the AI remember our conversation?**
+A: Yes, it maintains context from the last 6 messages for follow-up questions and natural conversation flow.
 
 ### Live Lab
 
 **Q: Why isn't my hand being detected?**
-A: Ensure good lighting (avoid backlit situations), show your full palms to the camera, and keep hands within frame. The lighting hint will appear if conditions are poor.
+A: Ensure good lighting, show your full palms to the camera, and keep hands within frame. Avoid backlighting and wear contrasting colors.
 
 **Q: How close do my hands need to be?**
-A: The trigger threshold is 20% of the normalized frame width. Roughly when your hands are visibly close together — they don't need to physically touch.
+A: The trigger threshold is 20% of the normalized frame width. Your hands should be visibly close but don't need to physically touch.
 
-**Q: Can I trigger the same reaction multiple times?**
-A: Yes! There is no limit on repeating reactions. A warning will appear after 3 dangerous reactions as a safety reminder, but it will never block you.
+**Q: What do the colored dots mean?**
+A: 🟢 Green = stable tracking, 🟡 Yellow = moderate confidence, 🔴 Red = low confidence or lost tracking.
 
-**Q: What do the colored dots on my hand mean?**
-A: 🟢 Green = stable tracking (high confidence), 🟡 Yellow = weak tracking (moderate confidence), 🔴 Red = lost tracking (low confidence).
+### Manual Lab
 
-### Technical
+**Q: How do I search for chemicals?**
+A: Click on any dropdown and start typing. You can search by chemical name (e.g., "sodium") or formula (e.g., "NaOH").
 
-**Q: How is performance optimized?**
-A: Hand tracking runs via `requestAnimationFrame` loop, coordinate smoothing uses a 5-frame moving average, effects use CSS animations (GPU-accelerated), and the reaction engine uses refs instead of state for zero-delay response.
+**Q: Why do chemicals appear in layers?**
+A: This simulates real chemistry where denser liquids sink and solids settle. Chemical B appears at the bottom, Chemical A on top.
 
-**Q: What is the API endpoint structure?**
-A:
-- `POST /mix` — Send `{ chem1, chem2 }` to get reaction data
-- `POST /analyze-mistake` — Send mistake context for AI explanation
-- `GET /reaction-guide` — Get all available reactions
+**Q: How does the Litmus Paper work?**
+A: The litmus paper automatically appears when you select chemicals and shows real-time pH changes. It uses realistic color coding: red for acids, purple for neutral, and blue for bases. The pH scale below shows the exact value and moves as you add different chemicals.
+
+**Q: How accurate is the pH testing?**
+A: pH values are based on realistic chemical properties. Strong acids show red (pH 1-2), strong bases show blue (pH 12-14), with appropriate colors for weak acids/bases. The system uses actual chemical data for educational accuracy.
 
 ---
 
@@ -370,7 +396,5 @@ This project is built as a capstone project for educational purposes.
 ---
 
 <p align="center">
-  Built with ❤️ by the Reactech Team
+  Built with ❤️ and powered by Google Gemini AI
 </p>
-"# reactech" 
-"# reactech" 

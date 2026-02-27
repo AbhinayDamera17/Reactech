@@ -1,0 +1,193 @@
+/* ==========================================================================
+   TutorCall.css  —  Tavus CVI Video Tutor styles for Reactech
+   Matches the existing cyan-accented dark glassmorphism theme.
+   ========================================================================== */
+
+/* ── Floating container (active call) ─────────────────────────────────────── */
+.tutor-call-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 400px;
+  height: 320px;
+  background: rgba(8, 12, 24, 0.92);
+  border: 1px solid rgba(0, 220, 255, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 0 32px rgba(0, 200, 255, 0.18), 0 8px 32px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  animation: tutor-slide-in 0.3s ease;
+}
+
+@keyframes tutor-slide-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── Header bar ────────────────────────────────────────────────────────────── */
+.tutor-call-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: rgba(0, 200, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 200, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.tutor-call-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00e5ff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Pulsing live indicator dot */
+.tutor-call-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e676;
+  box-shadow: 0 0 6px #00e676;
+  animation: tutor-pulse-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes tutor-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1);    }
+  50%       { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ── End-call button ───────────────────────────────────────────────────────── */
+.end-call-btn {
+  background: rgba(255, 55, 55, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 55, 55, 0.4);
+  border-radius: 7px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.end-call-btn:hover {
+  background: rgba(255, 55, 55, 0.35);
+  color: #fff;
+}
+
+/* ── Reaction context badge ────────────────────────────────────────────────── */
+.tutor-call-context-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  background: rgba(0, 200, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 200, 255, 0.1);
+  font-size: 11px;
+  color: rgba(0, 220, 255, 0.8);
+  flex-shrink: 0;
+}
+
+.risk-pill {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+.risk-pill--safe     { background: rgba(0, 230, 118, 0.2);  color: #00e676; }
+.risk-pill--moderate { background: rgba(255, 193, 7, 0.2);  color: #ffc107; }
+.risk-pill--danger   { background: rgba(255, 55, 55, 0.2);  color: #ff5252; }
+.risk-pill--unknown  { background: rgba(150, 150, 150, 0.2); color: #aaa;   }
+
+/* ── Video iframe wrapper ──────────────────────────────────────────────────── */
+.tutor-call-video-wrapper {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0 0 14px 14px;
+}
+
+.tutor-call-video-wrapper iframe,
+.tutor-call-video-wrapper > div {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* ── Idle / launch state ───────────────────────────────────────────────────── */
+.tutor-call-idle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* ── Start call button ─────────────────────────────────────────────────────── */
+.start-tutor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 188, 212, 0.35);
+}
+
+.start-tutor-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 188, 212, 0.5);
+}
+
+.start-tutor-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Loading spinner ───────────────────────────────────────────────────────── */
+.tutor-btn-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: tutor-spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes tutor-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Hint text below button ────────────────────────────────────────────────── */
+.tutor-call-hint {
+  font-size: 11px;
+  color: rgba(0, 200, 255, 0.5);
+  margin: 0;
+}
+
+/* ── Error banner ──────────────────────────────────────────────────────────── */
+.tutor-call-error {
+  background: rgba(255, 55, 55, 0.1);
+  border: 1px solid rgba(255, 55, 55, 0.3);
+  color: #ff6b6b;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  max-width: 360px;
+}

@@ -1,11 +1,12 @@
 import { useState, useRef, useCallback, useMemo } from 'react';
 import CameraFeed from './CameraFeed';
 import HandTracker from './HandTracker';
-import ChemicalOverlay from './ChemicalOverlay';
+import TestTube from './TestTube';
 import GestureReactionEngine from './GestureReactionEngine';
 import ReactionEffects3D from './ReactionEffects3D';
 import MistakeOverlay from './MistakeOverlay';
 import MistakeLog from './MistakeLog';
+import SearchableSelect from './SearchableSelect';
 import { CHEMICALS } from '../chemicals';
 import { detectMistakes, logIfNew, recordDangerTrigger } from '../mistakes/MistakeDetector';
 import '../LiveLab.css';
@@ -62,7 +63,15 @@ export default function LiveLabPage({ teacherMode, messages, setMessages }) {
             <div className="live-camera-frame">
                 <CameraFeed onVideoReady={handleVideoReady} />
                 <canvas ref={canvasRef} className="hand-canvas" />
-                <ChemicalOverlay hands={hands} chemLeft={chemLeft} chemRight={chemRight} />
+                
+                {/* Test tubes on hands */}
+                {hands.map(hand => (
+                    <TestTube 
+                        key={hand.side}
+                        hand={hand}
+                        chemicalId={hand.side === 'left' ? chemLeft : chemRight}
+                    />
+                ))}
 
                 {/* Always mounted — pass blocked as prop to preserve ref state */}
                 <GestureReactionEngine
@@ -132,18 +141,22 @@ export default function LiveLabPage({ teacherMode, messages, setMessages }) {
             <div className="live-sidebar">
                 <div className="live-panel glass-card">
                     <h3 className="live-panel-title">🫲 Left Hand {leftQuality && <span className={`quality-dot q-${leftQuality}`} />}</h3>
-                    <select value={chemLeft} onChange={e => setChemLeft(e.target.value)} className="live-select">
-                        <option value="">— Assign Chemical —</option>
-                        {CHEMICALS.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                    </select>
+                    <SearchableSelect
+                        value={chemLeft}
+                        onChange={setChemLeft}
+                        options={CHEMICALS}
+                        placeholder="— Assign Chemical —"
+                    />
                 </div>
 
                 <div className="live-panel glass-card">
                     <h3 className="live-panel-title">🫱 Right Hand {rightQuality && <span className={`quality-dot q-${rightQuality}`} />}</h3>
-                    <select value={chemRight} onChange={e => setChemRight(e.target.value)} className="live-select">
-                        <option value="">— Assign Chemical —</option>
-                        {CHEMICALS.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                    </select>
+                    <SearchableSelect
+                        value={chemRight}
+                        onChange={setChemRight}
+                        options={CHEMICALS}
+                        placeholder="— Assign Chemical —"
+                    />
                 </div>
 
                 <div className="live-panel glass-card">
